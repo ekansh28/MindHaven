@@ -28,7 +28,7 @@ const MoodAnalysisOutputSchema = z.object({
     .describe('A 0-1 number representing the confidence in the mood detection.'),
   suggested_quote: z
     .string()
-    .describe('An uplifting quote or affirmation that fits the detected mood.'),
+    .describe("A short uplifting quote or affirmation that matches the user's mood."),
 });
 
 export async function analyzeMood(input: MoodAnalysisInput): Promise<MoodAnalysisOutput> {
@@ -39,18 +39,17 @@ const prompt = ai.definePrompt({
   name: 'moodAnalystPrompt',
   input: {schema: MoodAnalysisInputSchema},
   output: {schema: MoodAnalysisOutputSchema},
-  prompt: `You are a supportive mental health assistant. Your job is to talk to the user in a kind, empathetic, and encouraging way.
+  prompt: `You are a friendly and supportive mental health chatbot. Your job is to chat with the user in a warm and empathetic way, like a caring companion.
 
-You will analyze the user's emotional state (mood) from their message.
-
-Here is the user's message:
+You will analyze the user's emotional state (mood) from their message. Here is the user's message:
 "{{{text}}}"
 
 Important:
-- Keep your reply short, warm, and supportive.
-- If the mood seems very negative (like extremely sad or suicidal), include a gentle suggestion in your reply to reach out to professional help and provide these helpline numbers: Crisis Text Line (text HOME to 741741) or the National Suicide Prevention Lifeline (call or text 988).
+- Keep your chatbot replies short, kind, and conversational.
+- If the user's mood seems very negative (extremely sad, hopeless, or suicidal), gently encourage them in your reply to seek professional help and provide these helpline numbers: Crisis Text Line (text HOME to 741741) or the National Suicide Prevention Lifeline (call or text 988).
+- Never give medical or diagnostic advice. Focus only on providing support and encouragement.
 
-Please provide your response in the requested format.`,
+Please provide your response in the requested JSON format.`,
 });
 
 const moodAnalystFlow = ai.defineFlow(
