@@ -9,11 +9,13 @@ interface MoodChartProps {
   data: MoodLog[];
 }
 
-const moodToValue = {
+const moodToValue: Record<string, number> = {
   'extremely-low': 0,
   'sad': 1,
   'angry': 2,
   'anxious': 3,
+  'stressed': 3.5,
+  'neutral': 3,
   'calm': 4,
   'happy': 5,
 };

@@ -33,6 +33,8 @@ export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [hasAskedAboutMood, setHasAskedAboutMood] = useState(false);
+  const [shouldLogNextResponse, setShouldLogNextResponse] = useState(false);
   const { addMoodLog, getTodayLog } = useMoodData();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -55,19 +57,35 @@ export function ChatInterface() {
     setIsLoading(true);
 
     try {
-      const result = await analyzeUserMood({ text: input });
-      
-      const aiMessage: Message = { 
-        id: crypto.randomUUID(), 
-        text: result.reply, 
-        sender: 'ai',
-        quote: result.suggested_quote
-      };
-      setMessages(prev => [...prev, aiMessage]);
+      // If this is the first message and we haven't asked about mood yet
+      if (!hasAskedAboutMood && messages.length === 1) {
+        // Don't analyze mood yet, just respond conversationally and ask how they're feeling
+        const aiMessage: Message = { 
+          id: crypto.randomUUID(), 
+          text: "Hello! It's nice to meet you. I'm here to listen and support you. How are you feeling today?", 
+          sender: 'ai'
+        };
+        setMessages(prev => [...prev, aiMessage]);
+        setHasAskedAboutMood(true);
+        setShouldLogNextResponse(true);
+      } else {
+        // Analyze mood for subsequent messages
+        const result = await analyzeUserMood({ text: input });
+        
+        const aiMessage: Message = { 
+          id: crypto.randomUUID(), 
+          text: result.reply, 
+          sender: 'ai',
+          quote: result.suggested_quote
+        };
+        setMessages(prev => [...prev, aiMessage]);
 
-      const mood = moodMapping[result.mood];
-      if (mood && !getTodayLog) { // Only log if no log for today exists
-        addMoodLog(mood, input);
+        // Only log mood if this is the response to our initial question and no log exists for today
+        const mood = moodMapping[result.mood];
+        if (mood && shouldLogNextResponse && !getTodayLog) {
+          addMoodLog(mood, input);
+          setShouldLogNextResponse(false); // Reset after logging
+        }
       }
       
     } catch (error) {
@@ -91,7 +109,7 @@ export function ChatInterface() {
             <div className="text-center text-muted-foreground pt-16">
                 <Sparkles className="mx-auto h-12 w-12 text-primary/30" />
                 <p className="mt-4">Your conversation will appear here.</p>
-                <p>Start by telling me how you feel.</p>
+                <p>Say hello to get started!</p>
             </div>
           )}
           {messages.map((message) => (
@@ -144,7 +162,7 @@ export function ChatInterface() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
+            placeholder={messages.length === 0 ? "Say hello to start..." : "Type your message..."}
             className="flex-grow"
             disabled={isLoading}
           />
@@ -152,7 +170,7 @@ export function ChatInterface() {
             <Send size={16} />
           </Button>
         </form>
-         {getTodayLog && (
+         {getTodayLog && messages.length > 0 && (
             <p className="text-xs text-center text-muted-foreground mt-2">
                 Your mood has been logged for today. Further chats here won't create new logs.
             </p>
