@@ -62,12 +62,12 @@ export default function MoodAnalysisPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
                 <BrainCircuit className="text-primary-foreground/80" />
-                AI Mood Assistant
+                AI Mood Journal
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Share your thoughts or feelings, and our AI assistant will offer a supportive reflection.
+                This is a dedicated space to write longer journal entries. The AI will analyze your entry and provide a reflection. Your entry here will not be automatically saved to your log.
               </p>
               <Textarea
                 placeholder="Write whatever is on your mind..."
@@ -82,7 +82,7 @@ export default function MoodAnalysisPage() {
                     <Loader className="mr-2 animate-spin" /> Analyzing...
                   </>
                 ) : (
-                  'Analyze My Mood'
+                  'Analyze My Entry'
                 )}
               </Button>
             </CardContent>

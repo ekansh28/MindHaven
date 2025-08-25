@@ -1,4 +1,4 @@
-export type Mood = 'happy' | 'sad' | 'anxious' | 'calm' | 'angry' | 'extremely-low';
+export type Mood = 'happy' | 'sad' | 'anxious' | 'calm' | 'angry' | 'extremely-low' | 'stressed' | 'neutral';
 
 export interface MoodLog {
   id: string;

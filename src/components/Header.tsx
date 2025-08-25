@@ -31,7 +31,7 @@ export function Header() {
             Dashboard
           </Link>
            <Link href="/mood-analysis" className={navLinkClasses('/mood-analysis')}>
-            AI Assistant
+            AI Journal
           </Link>
         </nav>
       </div>
