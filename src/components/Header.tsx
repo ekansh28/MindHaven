@@ -30,9 +30,6 @@ export function Header() {
           <Link href="/dashboard" className={navLinkClasses('/dashboard')}>
             Dashboard
           </Link>
-           <Link href="/mood-analysis" className={navLinkClasses('/mood-analysis')}>
-            AI Journal
-          </Link>
         </nav>
       </div>
     </header>

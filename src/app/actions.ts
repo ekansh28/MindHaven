@@ -2,7 +2,7 @@
 
 import { generateAffirmation as generateAffirmationFlow, type AffirmationInput } from '@/ai/flows/affirmation-generator';
 import { analyzeMood as analyzeMoodFlow } from '@/ai/flows/mood-analyst';
-import type { MoodAnalysisInput } from '@/app/mood-analysis/page';
+import type { MoodAnalysisInput } from '@/lib/types';
 
 
 export async function generateAffirmation(input: AffirmationInput) {

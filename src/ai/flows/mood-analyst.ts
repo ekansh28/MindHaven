@@ -10,26 +10,9 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import type { MoodAnalysisInput, MoodAnalysisOutput } from '@/app/mood-analysis/page';
+import type { MoodAnalysisInput, MoodAnalysisOutput } from '@/lib/types';
+import { MoodAnalysisInputSchema, MoodAnalysisOutputSchema } from '@/lib/types';
 
-const MoodAnalysisInputSchema = z.object({
-  text: z.string().describe('The journal entry or text from the user.'),
-});
-
-const MoodAnalysisOutputSchema = z.object({
-  reply: z.string().describe('A short, kind, empathetic, and encouraging reply to the user.'),
-  mood: z
-    .enum(['Happy', 'Sad', 'Angry', 'Anxious', 'Stressed', 'Calm', 'Neutral'])
-    .describe('The detected emotional state of the user.'),
-  confidence: z
-    .number()
-    .min(0)
-    .max(1)
-    .describe('A 0-1 number representing the confidence in the mood detection.'),
-  suggested_quote: z
-    .string()
-    .describe("A short uplifting quote or affirmation that matches the user's mood."),
-});
 
 export async function analyzeMood(input: MoodAnalysisInput): Promise<MoodAnalysisOutput> {
   return moodAnalystFlow(input);
