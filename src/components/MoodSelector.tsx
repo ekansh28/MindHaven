@@ -17,11 +17,11 @@ interface MoodSelectorProps {
 }
 
 const moodOptions: { mood: Mood; icon: React.ReactNode; label: string; color: string, selectedColor: string }[] = [
-  { mood: 'happy', icon: <Smile />, label: 'Happy', color: 'border-yellow-300', selectedColor: 'bg-yellow-300/30 text-yellow-800' },
-  { mood: 'calm', icon: <Wind />, label: 'Calm', color: 'border-blue-300', selectedColor: 'bg-blue-300/30 text-blue-800' },
-  { mood: 'anxious', icon: <Annoyed />, label: 'Anxious', color: 'border-purple-300', selectedColor: 'bg-purple-300/30 text-purple-800' },
-  { mood: 'sad', icon: <Frown />, label: 'Sad', color: 'border-gray-400', selectedColor: 'bg-gray-400/30 text-gray-800' },
-  { mood: 'angry', icon: <Angry />, label: 'Angry', color: 'border-red-400', selectedColor: 'bg-red-400/30 text-red-800' },
+  { mood: 'happy', icon: <Smile />, label: 'Happy', color: 'border-yellow-400', selectedColor: 'bg-yellow-400/30 text-yellow-900' },
+  { mood: 'calm', icon: <Wind />, label: 'Calm', color: 'border-green-400', selectedColor: 'bg-green-400/30 text-green-900' },
+  { mood: 'anxious', icon: <Annoyed />, label: 'Anxious', color: 'border-purple-400', selectedColor: 'bg-purple-400/30 text-purple-900' },
+  { mood: 'sad', icon: <Frown />, label: 'Sad', color: 'border-blue-400', selectedColor: 'bg-blue-400/30 text-blue-900' },
+  { mood: 'angry', icon: <Angry />, label: 'Angry', color: 'border-red-500', selectedColor: 'bg-red-500/30 text-red-100' },
   { mood: 'extremely-low', icon: <Frown />, label: 'Extremely Low', color: 'border-slate-600', selectedColor: 'bg-slate-600/30 text-slate-100' },
 ];
 
