@@ -16,14 +16,15 @@ interface MoodSelectorProps {
   isLoaded: boolean;
 }
 
-const moodOptions: { mood: Mood; icon: React.ReactNode; label: string; color: string }[] = [
-  { mood: 'happy', icon: <Smile />, label: 'Happy', color: 'hover:bg-yellow-200/50 border-yellow-300' },
-  { mood: 'calm', icon: <Wind />, label: 'Calm', color: 'hover:bg-blue-200/50 border-blue-300' },
-  { mood: 'anxious', icon: <Annoyed />, label: 'Anxious', color: 'hover:bg-purple-200/50 border-purple-300' },
-  { mood: 'sad', icon: <Frown />, label: 'Sad', color: 'hover:bg-gray-300/50 border-gray-400' },
-  { mood: 'angry', icon: <Angry />, label: 'Angry', color: 'hover:bg-red-300/50 border-red-400' },
-  { mood: 'extremely-low', icon: <Frown />, label: 'Extremely Low', color: 'hover:bg-black/20 border-black' },
+const moodOptions: { mood: Mood; icon: React.ReactNode; label: string; color: string, selectedColor: string }[] = [
+  { mood: 'happy', icon: <Smile />, label: 'Happy', color: 'border-yellow-300', selectedColor: 'bg-yellow-300/30 text-yellow-800' },
+  { mood: 'calm', icon: <Wind />, label: 'Calm', color: 'border-blue-300', selectedColor: 'bg-blue-300/30 text-blue-800' },
+  { mood: 'anxious', icon: <Annoyed />, label: 'Anxious', color: 'border-purple-300', selectedColor: 'bg-purple-300/30 text-purple-800' },
+  { mood: 'sad', icon: <Frown />, label: 'Sad', color: 'border-gray-400', selectedColor: 'bg-gray-400/30 text-gray-800' },
+  { mood: 'angry', icon: <Angry />, label: 'Angry', color: 'border-red-400', selectedColor: 'bg-red-400/30 text-red-800' },
+  { mood: 'extremely-low', icon: <Frown />, label: 'Extremely Low', color: 'border-slate-600', selectedColor: 'bg-slate-600/30 text-slate-100' },
 ];
+
 
 export function MoodSelector({ onMoodLogged, todayLog, isLoaded }: MoodSelectorProps) {
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
@@ -60,26 +61,26 @@ export function MoodSelector({ onMoodLogged, todayLog, isLoaded }: MoodSelectorP
 
   return (
     <>
-      <Card className="w-full max-w-2xl shadow-lg transition-all duration-300">
+      <Card className="w-full max-w-2xl shadow-lg transition-all duration-300 border-border/60">
         <CardHeader>
-          <CardTitle className="text-center font-headline">{todayLog ? "Today's Log" : "Select Your Mood"}</CardTitle>
+          <CardTitle className="text-center text-2xl font-semibold text-foreground/90">{todayLog ? "Today's Log" : "Select Your Mood"}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mb-6">
-            {moodOptions.map(({ mood, icon, label, color }) => (
+            {moodOptions.map(({ mood, icon, label, color, selectedColor }) => (
               <Button
                 key={mood}
                 variant="outline"
                 className={cn(
-                  "flex flex-col h-20 gap-2 transition-all duration-200 ease-in-out transform hover:scale-105 border-2",
+                  "flex flex-col h-24 gap-2 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 rounded-lg",
                   color,
-                  selectedMood === mood ? 'bg-primary/50 border-primary' : 'bg-transparent'
+                  selectedMood === mood ? selectedColor : 'bg-background hover:bg-secondary'
                 )}
                 onClick={() => handleMoodSelect(mood)}
                 disabled={!!todayLog}
               >
                 {icon}
-                <span className="text-xs">{label}</span>
+                <span className="text-sm font-medium">{label}</span>
               </Button>
             ))}
           </div>
@@ -87,12 +88,12 @@ export function MoodSelector({ onMoodLogged, todayLog, isLoaded }: MoodSelectorP
             placeholder="Add a private journal entry... (optional)"
             value={journal}
             onChange={(e) => setJournal(e.target.value)}
-            className="min-h-[100px] bg-background"
+            className="min-h-[100px] bg-background focus:bg-white"
             disabled={!!todayLog}
           />
         </CardContent>
         <CardFooter>
-          <Button onClick={handleSubmit} className="w-full" disabled={!selectedMood || !!todayLog}>
+          <Button onClick={handleSubmit} className="w-full" size="lg" disabled={!selectedMood || !!todayLog}>
             {todayLog ? 'Mood Logged for Today' : 'Log Mood'}
           </Button>
         </CardFooter>

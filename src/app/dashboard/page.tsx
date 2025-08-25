@@ -15,10 +15,10 @@ export default function Dashboard() {
   const sortedLogs = [...moodLogs].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <div className="flex flex-col min-h-screen bg-background font-body">
+    <div className="flex flex-col min-h-screen bg-secondary/50 font-sans">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground mb-8">Your Journey</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">Your Journey</h1>
         
         {isLoaded ? (
           <div className="grid gap-8 md:grid-cols-3">
@@ -28,8 +28,8 @@ export default function Dashboard() {
             
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <LineChart className="text-primary"/>
+                <CardTitle className="flex items-center gap-2 text-2xl font-semibold">
+                  <LineChart className="text-primary-foreground/80"/>
                   Mood Trends
                 </CardTitle>
               </CardHeader>

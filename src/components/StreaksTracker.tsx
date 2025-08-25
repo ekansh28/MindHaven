@@ -14,9 +14,9 @@ export function StreaksTracker({ streak }: StreaksTrackerProps) {
   ];
 
   return (
-    <Card className="bg-primary/20 border-primary">
+    <Card className="bg-card border">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-headline">
+        <CardTitle className="flex items-center gap-2 font-semibold">
           <Flame className="text-primary-foreground/80" />
           Your Progress
         </CardTitle>
@@ -31,7 +31,7 @@ export function StreaksTracker({ streak }: StreaksTrackerProps) {
         </div>
         <div className="flex-1 grid grid-cols-3 gap-4">
             {achievements.map(ach => (
-                <div key={ach.name} className={cn("flex flex-col items-center p-4 rounded-lg transition-all", streak >= ach.goal ? "bg-accent text-accent-foreground" : "bg-muted/50 text-muted-foreground")}>
+                <div key={ach.name} className={cn("flex flex-col items-center p-4 rounded-lg transition-all", streak >= ach.goal ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground")}>
                     <div className="mb-2">{ach.icon}</div>
                     <p className="text-xs text-center font-semibold">{ach.name}</p>
                 </div>

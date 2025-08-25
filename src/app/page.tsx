@@ -43,11 +43,11 @@ export default function Home() {
   }, [isLoaded, getTodayLog, handleFetchAffirmation]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background font-body">
+    <div className="flex flex-col min-h-screen bg-background font-sans">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">
         <div className="w-full max-w-2xl text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground mb-4 animate-fade-in-down">How are you feeling today?</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 animate-fade-in-down">How are you feeling today?</h1>
           <p className="text-lg text-muted-foreground animate-fade-in-down delay-200">Log your mood to see trends and get a personalized affirmation.</p>
         </div>
         <MoodSelector onMoodLogged={handleMoodLogged} todayLog={getTodayLog as MoodLog | undefined} isLoaded={isLoaded} />
